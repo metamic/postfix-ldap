@@ -33,6 +33,8 @@ The most simple use would be to start the application like so :
     -p 25:25
     --link ldap-container:ldap
     --link mda-container:mda
+    -e LDAP_BIND_DN="cn=postfix,dc=example,dc=com"
+    -e LDAP_BIND_DNPASS="password"
     -e LDAP_USER_FIELD="uid"
     -e LDAP_BASE="ou=users,dc=yourdomain,dc=com"
     -e DOMAIN="yourdomain.com"
@@ -48,6 +50,8 @@ However, you should use your own certificate and a data-only container to persis
     --link mda-container:mda
     --volumes-from smtp-certs
     --volumes-from smtp-queues
+    -e LDAP_BIND_DN="cn=postfix,dc=example,dc=com"
+    -e LDAP_BIND_DNPASS="password"
     -e LDAP_USER_FIELD="uid"
     -e LDAP_BASE="ou=users,dc=yourdomain,dc=com"
     -e DOMAIN="yourdomain.com"
@@ -61,6 +65,8 @@ Configuration
 
 The following environment variables allow you to configure the container:
 * LDAP_BASE (required): The base dn of the LDAP users
+* LDAP_BIND_DN (required): The bind dn of the LDAP user
+* LDAP_BIND_DNPASS (required): The bind dn password of the LDAP user
 * LDAP_USER_FIELD (required): The name of the LDAP field used to check `username`
 * DOMAIN (required): The domain used for local delivery (forward to the `mda` host)
 * HOSTNAME (required): The name resolution of the container public IP (ex: `smtp.yourdomain.com`). Used during HELO commands. Some remote SMTP server might refuse your messages if this variable is missing or misconfigured

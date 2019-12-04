@@ -23,6 +23,14 @@ if [ -n "$LDAP_BASE" ]; then
 	sed -i "s/^ldap_search_base\s*:.*$/ldap_search_base: $LDAP_BASE/" /etc/postfix/saslauthd.conf
 fi
 
+if [ -n "$LDAP_BIND_DN" ]; then
+	sed -i "s/^ldap_bind_dn:.*$/ldap_bind_dn: $LDAP_BIND_DN/" /etc/postfix/saslauthd.conf
+fi
+
+if [ -n "$LDAP_BIND_DNPASS" ]; then
+ 	sed -i "s/^ldap_bind_pw:.*$/ldap_bind_pw: $LDAP_BIND_DNPASS/" /etc/postfix/saslauthd.conf
+fi
+
 # Set LDAP conf: ldap_filter (ex: uid=%u)
 if [ -n "$LDAP_USER_FIELD" ]; then
 	sed -i "s/^ldap_filter\s*:.*$/ldap_filter: $LDAP_USER_FIELD=%u/" /etc/postfix/saslauthd.conf
